@@ -19,20 +19,14 @@ namespace QuizApp.Controllers
         [HttpGet("profile")]
         public async Task<IActionResult> GetUserProfile()
         {
-            var userId = User.FindFirst("sub")?.Value;
-            if(string.IsNullOrWhiteSpace(userId))
-            {
-                return Unauthorized();
-            }
+            var userProfile = await _userService.GetUserProfileAsync(User);
 
-            var userProfile = await _userService.GetUserProfileAsync(userId);
-            if(userProfile == null)
+            if (userProfile == null)
             {
                 return NotFound("User not found.");
             }
 
             return Ok(userProfile);
-
 
         }
     }
