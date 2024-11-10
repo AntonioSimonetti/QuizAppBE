@@ -48,8 +48,11 @@ builder.Services.AddEndpointsApiExplorer();
 // Registra il servizio di invio email per Identity
 builder.Services.AddTransient<IEmailSender, GmailEmailSender>();
 
-// Registro il servizio QuizService
+// Registro il servizio QuizService e UserService
 builder.Services.AddScoped<IQuizService, QuizService>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 // Aggiunto Swagger
 builder.Services.AddSwaggerGen(c =>
