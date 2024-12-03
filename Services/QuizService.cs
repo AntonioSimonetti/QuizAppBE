@@ -28,13 +28,27 @@ namespace QuizApp.Services
             return Quizzes;
         }
 
-        public async Task<IEnumerable<Quiz>> GetAllQuizzesAsync()
+        public async Task<IEnumerable<Quiz>> GetAllQuizzesByUserIdAsync(string userId)
         {
-            // Restituisce una lista di quiz; se non ci sono quiz, restituisce una lista vuota per evitare NullReferenceException.
-            // La gestione del caso in cui la lista è vuota può essere fatta nel controller o direttamente nel front-end.
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ArgumentException("User ID must not be null or empty.");
+            }
 
-            return await _context.Quizzes.ToListAsync();
+            // Filtra i quiz in base all'ID dell'utente
+            var userQuizzes = await _context.Quizzes
+                .Where(q => q.UserId == userId)
+                .ToListAsync();
+
+            // Controlla se non ci sono quiz associati all'utente
+            if (!userQuizzes.Any())
+            {
+                throw new ArgumentException("No quizzes found for the given user.");
+            }
+
+            return userQuizzes;
         }
+
 
         public async Task CreateQuizAsync(Quiz quiz)
         {
@@ -229,6 +243,25 @@ namespace QuizApp.Services
             return quiz.QuizQuestions.Select(qq => qq.Question);
         }
 
+        public async Task<Question> GetQuestionByIdAsync(int questionId)
+        {
+            if (questionId <= 0)
+            {
+                throw new ArgumentException("Question ID must be greater than zero.");
+            }
+
+            var question = await _context.Questions
+                .Include(q => q.Options) 
+                .FirstOrDefaultAsync(q => q.Id == questionId);
+
+            if (question == null)
+            {
+                throw new ArgumentException("Question not found.");
+            }
+
+            return question;
+        }
+
         // Option services
 
         public async Task<Option> CreateOptionAsync(Option option)
@@ -333,6 +366,24 @@ namespace QuizApp.Services
             }
 
             return question.Options;
+        }
+
+        public async Task<Option> GetOptionByIdAsync(int optionId)
+        {
+            if (optionId <= 0)
+            {
+                throw new ArgumentException("Option ID must be greater than zero.");
+            }
+
+            var option = await _context.Options
+                .FirstOrDefaultAsync(o => o.Id == optionId);
+
+            if (option == null)
+            {
+                throw new ArgumentException("Option not found.");
+            }
+
+            return option;
         }
 
         // Result services

@@ -119,7 +119,24 @@ namespace QuizApp.Controllers
             }
         }
 
-        // GetAllQuizzes
+        [HttpGet("user/{userId}/quizzes")]
+        public async Task<IActionResult> GetQuizzesByUserId(string userId)
+        {
+            try
+            {
+                var quizzes = await _quizService.GetAllQuizzesByUserIdAsync(userId);
+                return Ok(quizzes);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving quizzes.", error = ex.Message });
+            }
+        }
+
 
         // Question operations
 
@@ -262,6 +279,25 @@ namespace QuizApp.Controllers
 
         }
 
+        [HttpGet("questions/{questionId}")]
+        public async Task<IActionResult> GetQuestionById(int questionId)
+        {
+            try
+            {
+                var question = await _quizService.GetQuestionByIdAsync(questionId);
+                return Ok(question);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving the question.", error = ex.Message });
+            }
+        }
+
+
         // Option operations
 
         [HttpPost("CreateOption")]
@@ -383,6 +419,24 @@ namespace QuizApp.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("options/{optionId}")]
+        public async Task<IActionResult> GetOptionById(int optionId)
+        {
+            try
+            {
+                var option = await _quizService.GetOptionByIdAsync(optionId);
+                return Ok(option);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving the option.", error = ex.Message });
             }
         }
 

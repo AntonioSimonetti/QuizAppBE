@@ -7,7 +7,7 @@ namespace QuizApp.Interfaces
     {
         // CRUD per i Quiz
         Task<Quiz> GetQuizByIdAsync(int id);
-        Task<IEnumerable<Quiz>> GetAllQuizzesAsync();
+        Task<IEnumerable<Quiz>> GetAllQuizzesByUserIdAsync(string userId);
         Task CreateQuizAsync(Quiz quiz);
         Task UpdateQuizAsync(int id, Quiz quiz);
         Task DeleteQuizAsync(int id);
@@ -19,6 +19,7 @@ namespace QuizApp.Interfaces
         Task UpdateQuestionAsync(int id, Question question);
         Task DeleteQuestionAsync(int questionId);
         Task<IEnumerable<Question?>> GetQuestionsByQuizIdAsync(int quizId);
+        Task<Question> GetQuestionByIdAsync(int questionId);
 
         // Gestione delle Options
         Task<Option> CreateOptionAsync (Option option);
@@ -27,6 +28,7 @@ namespace QuizApp.Interfaces
         Task UpdateOptionAsync(int id, Option option);
         Task DeleteOptionAsync(int optionId);
         Task<IEnumerable<Option>> GetOptionsByQuestionIdAsync(int questionId);
+        Task<Option> GetOptionByIdAsync(int optionId);
 
         // Gestione Risultati
         Task SubmitQuizResultAsync(int quizId, string userId, int score);
