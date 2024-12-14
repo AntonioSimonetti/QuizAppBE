@@ -161,9 +161,9 @@ namespace QuizApp.Controllers
             try
             {
                 // Creare la domanda usando il servizio
-                await _quizService.CreateQuestionAsync(question);
+                var createdQuestion = await _quizService.CreateQuestionAsync(question);
 
-                return Ok("Question successfully created.");
+                return Ok(createdQuestion);
             }
             catch (Exception ex)
             {
