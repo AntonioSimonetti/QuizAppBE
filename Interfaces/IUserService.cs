@@ -6,5 +6,7 @@ namespace QuizApp.Interfaces
     public interface IUserService
     {
         Task<UserProfileDto> GetUserProfileAsync(ClaimsPrincipal user);
+        Task<bool> GetEmailConfirmationStatusAsync(ClaimsPrincipal user);
+
     }
 }

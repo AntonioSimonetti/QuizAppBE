@@ -29,5 +29,13 @@ namespace QuizApp.Controllers
             return Ok(userProfile);
 
         }
+
+        [HttpGet("email-confirmation-status")]
+        public async Task<IActionResult> GetEmailConfirmationStatus()
+        {
+            var isConfirmed = await _userService.GetEmailConfirmationStatusAsync(User);
+            return Ok(new { isConfirmed = isConfirmed });
+        }
+
     }
 }

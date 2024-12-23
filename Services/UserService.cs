@@ -44,5 +44,28 @@ namespace QuizApp.Services
                 Email = applicationUser.Email
             };
         }
+
+        public async Task<bool> GetEmailConfirmationStatusAsync(ClaimsPrincipal user)
+        {
+            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? user.FindFirst("sub")?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return false;
+            }
+
+            // Qui facciamo la query esplicita includendo EmailConfirmed
+            var applicationUser = await _userManager.Users
+                .Where(u => u.Id == userId)
+                .Select(u => new { u.EmailConfirmed }) // Using anonymous type to project only the EmailConfirmed field, optimizing the query by fetching only the needed data
+                .FirstOrDefaultAsync();
+
+            if (applicationUser == null)
+            {
+                return false;
+            }
+
+            return applicationUser.EmailConfirmed;
+        }
+
     }
 }
