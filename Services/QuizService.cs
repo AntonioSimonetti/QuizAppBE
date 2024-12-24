@@ -48,7 +48,19 @@ namespace QuizApp.Services
 
             return userQuizzes;
         }
+        public async Task<IEnumerable<Quiz>> GetAllPublicQuizzesAsync()
+        {
+            var publicQuizzes = await _context.Quizzes
+                .Where(q => q.IsPublic)
+                .ToListAsync();
 
+            if (!publicQuizzes.Any())
+            {
+                throw new ArgumentException("No public quizzes found.");
+            }
+
+            return publicQuizzes;
+        }
 
         public async Task CreateQuizAsync(Quiz quiz)
         {

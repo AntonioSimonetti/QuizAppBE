@@ -137,6 +137,24 @@ namespace QuizApp.Controllers
             }
         }
 
+        [HttpGet("public")]
+        public async Task<IActionResult> GetPublicQuizzes()
+        {
+            try
+            {
+                var quizzes = await _quizService.GetAllPublicQuizzesAsync();
+                return Ok(quizzes);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving public quizzes.", error = ex.Message });
+            }
+        }
+
 
         // Question operations
 

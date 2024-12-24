@@ -8,6 +8,7 @@ namespace QuizApp.Interfaces
         // CRUD per i Quiz
         Task<Quiz> GetQuizByIdAsync(int id);
         Task<IEnumerable<Quiz>> GetAllQuizzesByUserIdAsync(string userId);
+        Task<IEnumerable<Quiz>> GetAllPublicQuizzesAsync();
         Task CreateQuizAsync(Quiz quiz);
         Task UpdateQuizAsync(int id, Quiz quiz);
         Task DeleteQuizAsync(int id);
