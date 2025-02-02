@@ -53,6 +53,8 @@ builder.Services.AddScoped<IQuizService, QuizService>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
+// Registro il servizio per il parser
+builder.Services.AddScoped<QuizTextParser>();
 
 // Aggiunto Swagger
 builder.Services.AddSwaggerGen(c =>
@@ -87,6 +89,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 
 
 var app = builder.Build();
