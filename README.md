@@ -4,7 +4,7 @@
 This is the backend repository for the Quiz application. The app was created as an exercise to practice developing full-stack applications and to explore new technologies.
 It is built using ASP.NET Core .NET 8 and hosted on Azure. The backend interfaces with an SQL database, also hosted on Azure, to manage and store expense data.
 
-You can test the app live here: // not available yet!
+You can test the app live here: https://quizappfe-dmhrdjdxhmdfabgf.eastus-01.azurewebsites.net/
 <br>
 or
 <br>
