@@ -31,4 +31,4 @@ You can test the controllers here via swagger: https://quizappbe-cjavc5btahfscyd
 <b>Frontend Repository</b>
 <br>
 <br>
-You can visit the frontend repository for this project here: // not available yet!
+You can visit the frontend repository for this project here: https://github.com/AntonioSimonetti/QuizAppFE
